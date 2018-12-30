@@ -1,0 +1,37 @@
+-change postgres password:
+	#- change to the postgres user:
+		sudo su - postgres 
+	> psql
+	> \password     [prompted for password change -> changed to "zaphod99" 8/10/18]
+
+	other '\' commands:
+
+		\password       Change your password
+		\q              Exit psql
+		\l              List all databases accessible by the current account
+		\du             List roles
+		\c <db name>    Connect to a database
+		\dt             List all tables in a connected database
+		\d <table>      List columns in the selected table
+		\conninfo       Show information about your currect connection
+
+	> \q 
+	> createuser --interactive [admin, superuser]
+
+Other commands:
+
+CREATE ROLE hex50dbu;
+CREATE DATABASE hex50db;
+GRANT ALL PRIVILEGES ON DATABASE hex50db TO hex50dbu;
+ALTER ROLE hex50dbu SET client_encoding TO 'utf8';
+ALTER ROLE hex50dbu SET default_transaction_isolation TO 'read committed';
+ALTER ROLE hex50dbu SET timezone TO 'UTC';
+ALTER USER hex50dbu WITH PASSWORD 'hex50dotcom!!';
+
+
+DROP DATABASE hex50;
+DROP ROLE hex50user;
+ALTER USER hex50user WITH PASSWORD 'hex50dotcom!!';
+ALTER DATABASE hex50 OWNER TO hex50user;
+GRANT ALL PRIVILEGES ON DATABASE hex50 TO hex50user;
+

@@ -1,0 +1,185 @@
+django project (be sure to be in your virtualenv):
+
+	+ 	create django project - cd to ~/proj/django/<name>:
+		-> 	django-admin startproject <name> . 		//DO NOT FORGET THE '.' AT THE END OF THE COMMAND!!!
+			i 	this creates the root django project directory <name> (with manage.py, etc.)
+				and another <name> directory with settings.py
+
+	+ 	install any other dependencies (psycopg2, psycopg2-binary, etc.):
+		-> 	pipenv install <package>
+
+
+	+ 	start django server - cd to manage.py directory:
+		-> ./manage.py runserver
+			i 	creates sqlite3 db (default). Will warn about unapplied migrations (can be ignored for now).
+
+	i 	install packages for dev only (like test pkgs):
+		->	pipenv install <pkgname> --dev
+
+	i 	when ready to push to prod:
+		-> 	pipenv lock
+
+	i 	copy code and Pipfile.lock to prod env:
+		-> pipenv install --ignore-pipfile
+			i 	uses the Pipfile.lock to install deps into prod
+
+	i 	fork proj - get code with Pipfile:
+		-> 	pipenv install --dev
+
+---------------------------------------------------------------------------------------------------
+create new django project, start server....
+
+	+ 	create django project - cd to ~/proj/django/<new project name>:
+		-> 	django-admin startproject <name>
+			i 	this creates the root django project directory <name> (with manage.py, etc.)
+				and another <name> directory with settings.py
+
+	i 	put .gitignore in place before server is run (see mygit.txt)
+
+	i 	starting the server:
+		-> 	python3 manage.py runserver
+		i 	test the site: http://localhost:8000 or http://127.0.0.1:8000
+
+------------- django project (website), apps; portfolio, blog, seems to be by 'page'
+
+Add an app to a project (creates a directory strucuture under project directory)
+	python3 manage.py startapp appname
+
+
+	* Each 'app' needs a Model -> models.py. Create a class for that model.
+
+
+Creating migrations (updates db with newly created models)
+	python3 manage.py makemigrations
+
+Migrate the database (initialize/update db)
+	python3 manage.py migrate
+
+Creating a Super User for the admin panel
+	python3 manage.py createsuperuser
+
+Collecting static files into one folder
+	python3 manage.py collectstatic
+
+---------------- reset database ----------------------
+
+delete all migrations folders (all apps)
+drop database
+recreate database
+create migration files for each app:
+
+	python manage.py makemigrations <app>
+
+run migrations:
+
+	python manage.py migrate
+
+recreate superuser: 
+
+	python manage.py createsuperuser
+
+start server and login to admin console and recreate content.
+
+---------------- portfolio project ----------------------
+
+- Create Apps > Jobs and Blog
+		- under 'jobs' edit 'models.py'; create Job class
+		- under 'blog' edit 'models.py'; create Blog class
+
+		+ <project>/settings.py -> INSTALLED_APPS - tell django about your new apps (class from 
+			each apps 'apps.py'):
+			'jobs.apps.JobsConfig'
+			'jobs.apps.BlogConfig'
+
+			-> MEDIA_ROOT - tell django where to find images/videos etc. on the system (absolute path):
+				os.path.join(BASE_DIR, 'media')
+
+			-> MEDIA_URL - tell django where to find images/videos etc. via URL (relative browser URL):
+				'/media/' 		#- this can be anything and does NOT need to match MEDIA_ROOT
+
+		c- python manage.py makemigrations 	#- creates migration script(s) to update db 
+			for each app: <app>/migrations/xxxx_initial.py
+
+		c- python manage.py migrate 	#- applies (runs) all <app>/migrations/xxxx_initial.py scripts, thus
+			updating the database
+
+- Create Admin account and setup admin managed objects (Jobs/Blogs) 
+	> 	stop server
+	c- 	python manage.py createsuperuser
+		- restart server and login to <URL>/admin
+	+ 	<app>/admin.py  	
+			from .models import Job 	#- imports new 'Job' class created above
+			admin.site.register(Job)	#- registers the new app/class with the admin console
+
+	+ 	<project>/urls.py - update 'urlpatterns' with 'static' path to media files.
+			Also import settings.py -> from django.conf import settings
+
+- Postres - local admin console: pgAdmin III
+	
+	+ install postgres python module(s):
+		pip install psycopg2
+		pip install psycopg2-binary 
+
+	+ settings.py:
+		DATABASES = {
+    		'default': {
+	        #- 'ENGINE': 'django.db.backends.sqlite3',
+	        #- 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+	        'ENGINE':'django.db.backends.postgresql',
+	        'NAME':'portfoliodb',
+	        'USER':'postgres',
+	        'PASSWORD':'zaphod99',
+	        'HOST':'localhost', 
+	        'PORT':'5432',
+			}
+		}
+
+	python3 manage.py runserver
+
+		- will see warning about multiple migrations -> new db has just been created and does not have any 
+		  informaiton yet.
+
+			+ python3 manage.py migrate     #- creates new tales, etc.
+
+		- create a new super user (postgres)
+
+			+ python3 manage.py createsuperuser
+
+- bootstrap
+
+	
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Virtual environments - used in shared hosting enviroments (NOTE: use pipenv from this point forward)
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	
+	- install virtual environment - > runs as root <:
+		pip install virtualenv
+
+	- create a new virtual enviroment (creates directory) :
+		virtualenv <name>
+
+	- start the virtual environment:
+		source <name>/bin/activate   #- runs the activate exe in the ./bin folder
+		
+			You should now see the terminal command line prefixed with "(<name>)"
+
+		You can install things, different libraries, modules, django, different versions of python, etc.
+		The entire enviroment is sandboxed from everything else.
+
+	- stop the virtual environment:
+		deactivate
+
+	- install django in the virtual environment ('activate' enviroment first):
+		pip install django    #- installs latest version
+			<OR>
+		pip install django=x.y.z   #- installs specific version of django  
+
+	- install Pillow in the vrutal environment	
+		pip install Pillow		#- allows you to work with images.
+
+
+
+
+
+

@@ -1,0 +1,65 @@
+---------------- git
+
+After install config: 
+
+git config --global user.email "daryn@hex50.com"
+git config --global user.name "drayoden"
+
+
+create project directory, create files/directories, initilize any frameworks;
+	node.js, ruby, django, etc...
+
+make the project directory the current directory
+
+git init
+	git status
+git add -A
+git commit -m "msg"
+
+// create new repo on github site (use only one option below)...
+curl -u 'drayoden' https://api.github.com/user/repos -d '{"name":"<reponame>"}'
+    <OR> if repo is already created from web site:
+git remote add origin git@github.com:drayoden/<reponame>.git
+
+    // create key pair...
+    ssh-keygen -t rsa -b 4096 -C "email"
+
+    // add private key to ssh client...
+    ssh-add ~/.ssh/id_rsa
+
+    // add public key to git hub -> Settings -> SSH and GPG keys.
+    
+    // clone:
+    git clone git@github.com:drayoden/<reponame>
+
+
+    // tell (local) git repo where the remote repo is located:
+    git remote add origin https://github.com/drayoden/myBackup.git
+    git remote -v  // lists remote repos for current local repo
+        // where "myBackup.git" is the repo name
+
+
+git push origin <branchname - use 'master' initially>  // 
+
+
+----------- gitignore 
+
+- open project folder, create '.gitignore' file
+- enter files/directories you DO NOT want to be included into your repo:
+	*.pyc
+	/static
+	/images
+- see https://www.gitignore.io for pre-created default .gitignore files depending on programming language, etc.
+
+
+-------------- git fork/branch
+
+- branch is often temporary and my be deleted.
+- fork is a new project based on a previous project.
+
+    - create a working copy of a local repository by running the command
+        git clone /path/to/repository
+
+        when using a remote server, your command will be
+            git clone username@host:/path/to/repository
+

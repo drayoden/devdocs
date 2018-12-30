@@ -1,0 +1,76 @@
+---------------------------------------------------------------------------
+-> 	terminal
++ 	task
+i 	informaition
+---------------------------------------------------------------------------
+System pre-config (python, pip):
+
+	i 	python 2.7.15 and 3.6.6 come installed on Pop!_OS (10/19/2018). you
+		can verify:
+		->	python --version
+		->	python3 --version
+
+	[NOT REQUIRED AT THIS TIME] 
+	i 	latest python version (python.org) is 3.7.1 (10/21/2018).
+	+ 	install python 3.7.1:
+		->	apt install python3.7
+
+	+ 	install python3-dev: 
+		-> 	apt install python3-dev
+
+	+ 	install pip: 
+		->	apt install python-pip
+		->	apt install python3-pip
+			*************** NOTE ********************
+			at this time (10/22/2018), there is some 
+			kind of bug in the pip and pip3 'executable': /usr/bin/pip(3)
+			change the following line:
+				from pip import main
+			to this:
+				from pip._internal import main
+			*****************************************
+			verify:
+			->	pip -V
+			->	pip3 -V
+---------------------------------------------------------------------------
+Pipenv config:
+
+	+ 	install pipenv:
+		->	pip3 install --user pipenv
+	+ 	set $PATH in .bashrc: Add these lines to end:
+
+			# set PATH so it includes user's private bin if it exists
+			if [ -d "$HOME/.local/bin" ] ; then
+    			PATH="$HOME/.local/bin:$PATH"
+			fi
+
+	+ 	create a new project directory:	
+			~/proj
+				/django (optional)
+					/<new project name>-p 		i 	this is my own syntax known as 'dashp'
+
+	+ 	create new virtualenv: cd to ~/proj/django/<dashp>:
+		->  pipenv install django
+			i 	this creates (does not start) the virtualenv and creates Pipfile/Pipfile.lock files,
+				this DOES not START the virtualenv. 
+
+	+	start the virtualenv: cd to  ~/proj/django/<dashp> and start new virtualenv:
+		->	pipenv shell
+			i 	this starts the virtualenv. Note that the command prompt is now prefixes
+				with '(new project name)'. Type 'exit' to get out of virtualenv.
+---------------------------------------------------------------------------
+django project (be sure to be in your virtualenv):
+
+	+ 	create django project - cd to ~/proj/django/<dashp>:
+		-> 	django-admin startproject <name> .		//DO NOT FORGET THE '.' AT THE END OF THE COMMAND!!!
+			i 	this creates the root django project directory <name> (with manage.py, etc.)
+				and another <name> directory with settings.py
+
+	+ 	install any other dependencies (psycopg2, psycopg2-binary, etc.):
+		-> 	pipenv install <package>
+
+
+	+ 	start django server - cd to manage.py directory:
+		-> ./manage.py runserver
+			i 	creates sqlite3 db (default). Will warn about unapplied migrations (can be ignored for now).
+
