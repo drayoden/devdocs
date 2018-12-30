@@ -34,9 +34,9 @@ git remote add origin git@github.com:drayoden/<reponame>.git
 
 
     // tell (local) git repo where the remote repo is located:
-    git remote add origin https://github.com/drayoden/myBackup.git
+    git remote add origin https://github.com/drayoden/<reponame>.git
     git remote -v  // lists remote repos for current local repo
-        // where "myBackup.git" is the repo name
+        
 
 
 git push origin <branchname - use 'master' initially>  // 
