@@ -32,7 +32,6 @@ git remote add origin git@github.com:drayoden/<reponame>.git
     // clone:
     git clone git@github.com:drayoden/<reponame>
 
-
     // tell (local) git repo where the remote repo is located:
     git remote add origin https://github.com/drayoden/<reponame>.git
     git remote -v  // lists remote repos for current local repo
@@ -63,3 +62,9 @@ git push origin <branchname - use 'master' initially>  //
         when using a remote server, your command will be
             git clone username@host:/path/to/repository
 
+-----------------  git workflow  ------------------------
+gh - create new repo
+local - clone new repo
+local - make changes to repo
+local - commint changes to repo
+local - push changes to Rrepo
