@@ -1,0 +1,52 @@
+# djangoBase.txt - process to create the base django with bootstrap(CDN) template.
+# This document assumes the installs of python3, pip3 and pipenv.
+
+mkdir <proj>
+<proj> -> pipenv shell
+<proj> -> django-admin startproject <dproj> .
+<proj> -> pipenv install <pkg>...
+
+-- django --
+
+<proj> -> create djano app -> ./manage.py startapp <app>
+update <dproj>/settings.py [1,2]
+create <app>/urls.py [1]
+update <app>/views.py [1]
+update <dproj>/urls.py [1]
+create templates dir in <proj>
+    create <app> dirs under <proj>/templates as needed
+create <proj>/templates/<app>/index.html
+create <proj>/templates/base.html (bootstrap CDN, etc.)
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~ detailed process for files above
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~ <dproj>/settings.py
+    [1] - INSTALLED_APPS -> add "<app>.apps.<class>"
+          INSTALLED_APPS = [
+              '...',
+              '<app>.apps.<class>',
+              '...',
+    [2] - TEMPLATES -> add location of templates dir...
+          'DIRS': [os.path.join(BASE_DIR,'templates')],
+
+~~~ <app>/urls.py
+    [1] - set urlpatterns -> path to "views.<vmeth>", name=<vmeth> (see <app>/views.py)
+          urlpatterns = [
+              path('', views.<vmeth>, name='<vmeth>')
+          ]
+
+
+~~~ <app>/views.py
+    [1] - define <vmeth> method/class/function
+          def index(request):
+              return render(request, 'pages/index.html)
+
+
+~~~ <dproj>/urls.py
+    [1] - set path for home page
+          urlpatterns = [
+              path('', include('<app>.urls')),
+          ]
