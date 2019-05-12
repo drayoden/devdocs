@@ -1,6 +1,9 @@
 -install
 	sudo apt update
 	sudo apt install postgresql postgresql-contrib
+	
+	verify:
+		sudo -u postgres psql -c "SELECT version();"
 
 -change postgres password:
 	#- change to the postgres user:
