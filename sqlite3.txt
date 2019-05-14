@@ -10,5 +10,6 @@
     .dump ?TABLE?  -- dump db in SQL format. If TABLE specified only dump table
     >select * from <table>; -- run query
     >delete from <table> where foo="bar";
+    .schema --indent <table>  -- prints schema for "table"
 
     
