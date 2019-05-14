@@ -1,0 +1,14 @@
+-- install sqlite3 CLI:
+    pass
+
+-- start CLI:
+    >sqlite3  -- starts CLI
+    
+    .open <filename>
+    .tables
+    .databases -- shows "connected" dbs
+    .dump ?TABLE?  -- dump db in SQL format. If TABLE specified only dump table
+    >select * from <table>; -- run query
+    >delete from <table> where foo="bar";
+
+    
