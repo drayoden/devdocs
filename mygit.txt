@@ -17,7 +17,7 @@ make the project directory the current directory
 git init
 	git status
 git add -A
-git commit -m "msg"
+git commit -m "msg"  <OR> git commit // if you have your editor setup in .gitconfig
 
 // create new repo on github site (use only one option below)...
 curl -u 'drayoden' https://api.github.com/user/repos -d '{"name":"<reponame>"}'
