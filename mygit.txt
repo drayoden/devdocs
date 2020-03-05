@@ -5,6 +5,9 @@ After install config:
 git config --global user.email "daryn@hex50.com"
 git config --global user.name "drayoden"
 
+	<OR>
+	
+create .gitconfig with this information
 
 create project directory, create files/directories, initilize any frameworks;
 	node.js, ruby, django, etc...
