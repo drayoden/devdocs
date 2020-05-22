@@ -7,9 +7,8 @@
 
 -change postgres password:
 	#- change to the postgres user:
-		sudo su - postgres 
-	> psql
-	> \password     [prompted for password change -> changed to "z99" 8/10/18]
+		sudo -u postgres psql 
+		\password postgres     [prompted for password change -> changed to "z99" 8/10/18]
 
 	other '\' commands:
 
